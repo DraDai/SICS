@@ -1,0 +1,36 @@
+name: Spring Boot CI
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+# 2. 设置权限：允许写入包仓库（为将来推送镜像准备）
+permissions:
+  contents: read
+  packages: write
+jobs:
+  # 任务：构建与测试
+  build-and-test:
+    # 在最新的 Ubuntu 环境中运行
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤 1: 检出代码 (官方动作)
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      # 步骤 2: 设置 Java 环境 (官方动作)
+      - name: ☕ Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin' # Eclipse Temurin JDK
+
+      # 步骤 3: 构建项目（Maven示例）
+      # 如果是Gradle项目，将下一行替换为 `run: ./gradlew build`
+      - name: 🔨 Build with Maven
+        run: mvn clean compile
+
+      # 步骤 4: 运行测试（Maven示例）
+      - name: 🧪 Run Tests
+        run: mvn test

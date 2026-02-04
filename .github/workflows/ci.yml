@@ -16,7 +16,7 @@ permissions:
 env:
   REGISTRY: ghcr.io
   # 镜像名称自动构建为：ghcr.io/你的用户名/仓库名/服务名
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository | lower }}
 
 jobs:
   # Job 1: 构建、测试所有服务

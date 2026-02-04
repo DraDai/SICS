@@ -1,4 +1,4 @@
-FROM openjdk:21-slim
+FROM eclipse-temurin:21-jdk-alpine
 # 先创建一个空的jar文件，让COPY指令有东西可复制，避免构建失败
 RUN touch app.jar
 COPY app.jar app.jar

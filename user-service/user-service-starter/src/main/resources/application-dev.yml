@@ -1,0 +1,15 @@
+server:
+  port: 0
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://106.53.50.122:5432/sicsdb
+    username: sics_user
+    password: SicsDB_2024_Secure_P@ss
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+  mapper-locations: classpath*:/mapper/**/*Mapper.xml

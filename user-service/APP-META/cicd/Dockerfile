@@ -1,4 +1,13 @@
 FROM eclipse-temurin:21-jre-alpine
-# 创建一个空的JAR文件并直接使用它（不复制）
-RUN touch /app.jar
-ENTRYPOINT ["echo", "This is a placeholder image for user-service"]
+
+WORKDIR /app/bin
+
+ARG JAR_PACKAGE
+
+ENV JAR_PACKAGE=${JAR_PACKAGE}
+
+COPY ${JAR_PACKAGE} /app/bin
+# 设置时区
+ENV TZ=Asia/Shanghai
+
+ENTRYPOINT  ["/bin/sh", "-c", "exec java ${JAVA_OPTS} -jar ${JAR_PACKAGE}"]

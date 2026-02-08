@@ -32,7 +32,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: 🔨 Build and Package All Services
+      - name: 🔨 构建打包所有的微服务
         id: build
         run: |
           # 在项目根目录执行，会构建所有子模块
@@ -50,15 +50,15 @@ jobs:
         service: ['user-service']
     steps:
       - uses: actions/checkout@v4
-      - name: 🐳 Set up Docker Buildx
+      - name: 🐳 设置Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: 🔐 Log in to GHCR
+      - name: 🔐 登录GHCR
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }} # 使用GitHub自动生成的令牌，无需手动设置
-      - name: 🏗️ Build and Push Docker Image
+      - name: 🏗️ 构建镜像并推送到GHCR
         uses: docker/build-push-action@v5
         with:
           context: ./${{ matrix.service }}/APP-META/cicd # 指向Dockerfile所在的具体子目录
@@ -76,15 +76,13 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: 🪣 Download kubeconfig
-        # 关键：从GitHub Secrets中获取你的k3s集群config文件
-        # 你需要提前将你的 ~/.kube/config 文件内容存入名为 KUBE_CONFIG 的Secret
+      - name: 🪣 获取k3s集群config文件
         run: echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-      - name: 🛠️ Set up kubectl
+      - name: 🛠️ 安装kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
-      - name: 🚀 Deploy to k3s
+      - name: 🚀 更新镜像
         # 更新k3s集群中指定Deployment的镜像，触发滚动更新
         run: |
           export KUBECONFIG=kubeconfig.yaml

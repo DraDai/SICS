@@ -3,19 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>user-service</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>user-service-starter</module>
-        <module>user-service-main</module>
-    </modules>
     <parent>
         <groupId>com.sics</groupId>
-        <artifactId>sics-parent</artifactId>
-        <version>1.0.0</version>
+        <artifactId>user-service</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
+    <packaging>pom</packaging>
+    <modules>
+        <module>user-service-main-app</module>
+        <module>user-service-main-client</module>
+        <module>user-service-main-domain</module>
+        <module>user-service-main-entry</module>
+        <module>user-service-main-infra</module>
+    </modules>
+
+    <artifactId>user-service-main</artifactId>
+
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

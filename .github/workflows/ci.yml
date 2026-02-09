@@ -32,13 +32,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-#      - name: 🔨 构建打包所有的微服务
-#        id: build
-#        run: |
-#          # 在项目根目录执行，会构建所有子模块
-#          mvn clean package -DskipTests
-#          # 假设你的主服务JAR在 target/ 目录，这里示例路径，请按实际修改
-#          echo "jar-path=target/*.jar" >> $GITHUB_OUTPUT
       - name: 🔨 安装所有基础模块
         run: |
         # 关键：先跳过repackage安装所有库模块

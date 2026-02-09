@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app/bin
 
-COPY user-service-starter/target/*.jar app.jar
+COPY target/*.jar app.jar
 # 设置时区
 ENV TZ=Asia/Shanghai
 

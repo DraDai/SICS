@@ -61,7 +61,7 @@ jobs:
       - name: 🏗️ 构建镜像并推送到GHCR
         uses: docker/build-push-action@v5
         with:
-          context: ./${{ matrix.service }}/APP-META/cicd # 指向Dockerfile所在的具体子目录
+          context: ./${{ matrix.service }}/${{ matrix.service }}-starter  # 指向Dockerfile所在的具体子目录
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_PREFIX }}/${{ env.REPO_NAME }}/${{ matrix.service }}:latest

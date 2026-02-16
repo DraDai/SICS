@@ -61,6 +61,12 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }} # 使用GitHub自动生成的令牌，无需手动设置
+      - name: 🔍 调试：查看构建上下文
+        run: |
+          pwd
+          ls -la
+          ls -la ${{ matrix.service }}/${{ matrix.service }}-starter/
+          ls -la ${{ matrix.service }}/${{ matrix.service }}-starter/target/
       - name: 🏗️ 构建镜像并推送到GHCR
         uses: docker/build-push-action@v5
         with:

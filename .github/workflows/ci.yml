@@ -38,11 +38,9 @@ jobs:
           distribution: 'temurin'
       - name: 🔨 安装所有基础模块
         run: |
-        # 关键：先跳过repackage安装所有库模块
           mvn clean install -DskipTests -Dspring-boot.repackage.skip=true
       - name: 📦 单独打包可执行的starter模块
         run: |
-        # 只构建需要打包成镜像的模块
           mvn clean package -pl ${{ matrix.service }}/${{ matrix.service }}-starter -am -DskipTests
 
   # Job 2: 为每个微服务构建并推送Docker镜像到GHCR

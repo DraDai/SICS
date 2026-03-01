@@ -27,9 +27,6 @@ jobs:
         # 这里是关键：定义你的微服务列表。未来新增服务，只需在这里添加一行。
         service: [ 'user-service' ]
     runs-on: ubuntu-latest
-    # 关键：这将生成一个包含JAR的构建产物，供后续Job使用
-    outputs:
-      jar-artifact: ${{ steps.build.outputs.jar-path }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -42,6 +39,11 @@ jobs:
       - name: 📦 单独打包可执行的starter模块
         run: |
           mvn clean package -pl ${{ matrix.service }}/${{ matrix.service }}-starter -am -DskipTests
+      - name: 上传JAR文件作为artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.service }}-jar
+          path: ${{ matrix.service }}/${{ matrix.service }}-starter/target/*.jar
 
   # Job 2: 为每个微服务构建并推送Docker镜像到GHCR
   build-and-push-image:
@@ -53,6 +55,24 @@ jobs:
         service: ['user-service']
     steps:
       - uses: actions/checkout@v4
+        # 1️⃣ 下载 JAR 文件（关键补充）
+      - name: 📥 下载 ${{ matrix.service }} JAR文件
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.service }}-jar
+          path: ${{ matrix.service }}/${{ matrix.service }}-starter/target/
+
+        # 2️⃣ 验证 JAR 文件存在
+      - name: 🔍 验证JAR文件
+        run: |
+          echo "=== 下载的JAR文件 ==="
+          ls -la ${{ matrix.service }}/${{ matrix.service }}-starter/target/
+          if [ -f ${{ matrix.service }}/${{ matrix.service }}-starter/target/*.jar ]; then
+            echo "✅ JAR文件下载成功"
+          else
+            echo "❌ JAR文件不存在"
+            exit 1
+          fi
       - name: 🐳 设置Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: 🔐 登录GHCR
@@ -61,12 +81,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }} # 使用GitHub自动生成的令牌，无需手动设置
-      - name: 🔍 调试：查看构建上下文
-        run: |
-          pwd
-          ls -la
-          ls -la ${{ matrix.service }}/${{ matrix.service }}-starter/
-          ls -la ${{ matrix.service }}/${{ matrix.service }}-starter/target/
       - name: 🏗️ 构建镜像并推送到GHCR
         uses: docker/build-push-action@v5
         with:

@@ -7,9 +7,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-@SpringBootApplication(scanBasePackages = "com.sics.user")
+@SpringBootApplication(scanBasePackages = "com.sics.auth")
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.sics.user.client")
+@EnableFeignClients(basePackages = "com.sics.auth.client")
 public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);

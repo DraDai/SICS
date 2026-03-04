@@ -9,6 +9,7 @@
         <version>1.0.0</version>
     </parent>
 
+
     <artifactId>auth-service-starter</artifactId>
 
     <properties>
@@ -17,11 +18,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.sics</groupId>-->
-<!--            <artifactId>user-service-main-entry</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.sics</groupId>
+            <artifactId>auth-service-main-entry</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -57,7 +58,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.sics.user.Application</mainClass>
+                    <mainClass>com.sics.auth.Application</mainClass>
                 </configuration>
             </plugin>
             <plugin>

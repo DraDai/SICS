@@ -5,21 +5,25 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.sics</groupId>
-        <artifactId>sics-parent</artifactId>
+        <artifactId>auth-service-main</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>auth-service</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>auth-service-starter</module>
-        <module>auth-service-main</module>
-    </modules>
+    <artifactId>auth-service-main-client</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -5,16 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.sics</groupId>
-        <artifactId>sics-parent</artifactId>
+        <artifactId>auth-service-main</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>auth-service</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>auth-service-starter</module>
-        <module>auth-service-main</module>
-    </modules>
+    <artifactId>auth-service-main-domain</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

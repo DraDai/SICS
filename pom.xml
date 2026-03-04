@@ -41,6 +41,7 @@
     <!-- 声明所有子模块 -->
     <modules>
         <module>user-service</module>
+        <module>auth-service</module>
     </modules>
 
     <dependencyManagement>
